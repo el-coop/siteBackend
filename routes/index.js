@@ -25,7 +25,7 @@ router.post('/api/contact', csrfProtection, function (req, res) {
 		}
 	});
 	var mailOptions = {
-		from: '"Contact Form" <contact.@elcoop.io>', // sender address
+		from: '"Contact Form" <contact@elcoop.io>', // sender address
 		to: 'contact.@elcoop.io', // list of receivers
 		subject: 'Message from ' + req.body.name, // Subject line
 		text: req.body.name + '\n' + req.body.email + '\n' + req.body.message, // plain text body
