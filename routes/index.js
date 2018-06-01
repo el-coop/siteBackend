@@ -1,13 +1,20 @@
 var express = require('express');
 var router = express.Router();
 var nodeMailer = require('nodemailer');
+var csrf = require('csurf');
+var csrfProtection = csrf({cookie: true});
 
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', function (req, res) {
 	res.render('index', {title: 'Express'});
 });
 
-router.post('/api/contact', function (req, res, next) {
+router.get('/api/csrf-token', csrfProtection, function (req, res) {
+	res.cookie('XSRF-TOKEN', req.csrfToken());
+	res.send('true');
+});
+
+router.post('/api/contact', csrfProtection, function (req, res) {
 	var transporter = nodeMailer.createTransport({
 		host: process.env.MAIL_HOST,
 		port: 465,
