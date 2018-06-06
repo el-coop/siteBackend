@@ -35,8 +35,8 @@ router.post('/api/contact', csrfProtection, function (req, res) {
 
 	transporter.sendMail(mailOptions, function (error, info) {
 		if (error) {
-			console.log(error);
-			res.status(500).send({success: false})
+			res.status(500).send({success: false});
+			return;
 		}
 
 		res.send({
